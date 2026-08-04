@@ -29,7 +29,7 @@ export function Footer() {
         </nav>
 
         <p className="text-sm text-mist-muted">
-          © {year} Ene Solutions. Tous droits réservés.
+          © {year} Ene Solutions et Eric Soret. Tous droits réservés.
         </p>
       </div>
     </footer>
