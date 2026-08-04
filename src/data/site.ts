@@ -3,6 +3,8 @@ export type Service = {
   title: string;
   tagline: string;
   description: string;
+  /** Lien vers la marque commerciale (externe). Sinon → contact. */
+  href?: string;
 };
 
 export const services: Service[] = [
@@ -12,6 +14,7 @@ export const services: Service[] = [
     tagline: "L’instant, capturé avec élégance",
     description:
       "Reportages sensibles et direction artistique pour immortaliser votre journée — des préparatifs jusqu’à la dernière danse.",
+    href: "https://www.loeil_de_monsieur_r.fr",
   },
   {
     id: "danse",
@@ -19,6 +22,7 @@ export const services: Service[] = [
     tagline: "Rythme, posture, plaisir",
     description:
       "Cours individuels ou en groupe pour progresser en douceur, préparer une danse de mariage ou simplement se retrouver sur la piste.",
+    href: "https://www.quericomambo.fr",
   },
   {
     id: "dj",
@@ -26,6 +30,7 @@ export const services: Service[] = [
     tagline: "L’ambiance, de A à Z",
     description:
       "Animation musicale et coordination technique pour mariages, soirées privées et événements d’entreprise — playlist sur mesure, énergie maîtrisée.",
+    href: "https://groovin90s.com/",
   },
   {
     id: "secourisme",

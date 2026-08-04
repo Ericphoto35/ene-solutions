@@ -31,35 +31,41 @@ export function Services() {
         </div>
 
         <ul className="mt-16 divide-y divide-line border-y border-line">
-          {services.map((service, index) => (
-            <li key={service.id} className="group">
-              <a
-                href={`/?service=${service.id}#contact`}
-                className="grid gap-4 py-8 transition-colors sm:grid-cols-[4rem_1fr_1.2fr_auto] sm:items-baseline sm:gap-8 sm:py-10"
-              >
-                <span className="font-display text-sm tracking-widest text-copper">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-display text-2xl font-semibold text-mist transition-colors group-hover:text-copper-bright sm:text-3xl">
-                    {service.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-mist-muted italic">
-                    {service.tagline}
-                  </p>
-                </div>
-                <p className="text-sm leading-relaxed text-mist-muted sm:text-base">
-                  {service.description}
-                </p>
-                <span
-                  className="hidden text-copper transition-transform group-hover:translate-x-1 sm:inline"
-                  aria-hidden
+          {services.map((service, index) => {
+            const isExternal = Boolean(service.href);
+            return (
+              <li key={service.id} className="group">
+                <a
+                  href={service.href ?? `/?service=${service.id}#contact`}
+                  {...(isExternal
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="grid gap-4 py-8 transition-colors sm:grid-cols-[4rem_1fr_1.2fr_auto] sm:items-baseline sm:gap-8 sm:py-10"
                 >
-                  →
-                </span>
-              </a>
-            </li>
-          ))}
+                  <span className="font-display text-sm tracking-widest text-copper">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-2xl font-semibold text-mist transition-colors group-hover:text-copper-bright sm:text-3xl">
+                      {service.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-mist-muted italic">
+                      {service.tagline}
+                    </p>
+                  </div>
+                  <p className="text-sm leading-relaxed text-mist-muted sm:text-base">
+                    {service.description}
+                  </p>
+                  <span
+                    className="hidden text-copper transition-transform group-hover:translate-x-1 sm:inline"
+                    aria-hidden
+                  >
+                    →
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
