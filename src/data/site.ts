@@ -132,6 +132,16 @@ export const projects: Project[] = [
     stack: "Design sur mesure",
     image: "/projects/salsarennes.webp",
   },
+  {
+    id: "salsacubaine",
+    title: "Aturitmobaila",
+    category: "Site vitrine",
+    description:
+      "Site de l’école de salsa cubaine Aturitmobaila — présentation des cours, de l’univers et de la prise de contact.",
+    href: "https://salsacubaine.fr",
+    stack: "Design sur mesure",
+    image: "/projects/salsacubaine.webp",
+  },
 ];
 
 export const navLinks = [
