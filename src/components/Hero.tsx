@@ -38,7 +38,7 @@ export function Hero() {
 
         <p className="animate-fade-up delay-3 mt-8 max-w-xl text-base leading-relaxed text-mist/85 sm:text-lg">
           Derrière ENE Solutions, un même professionnel au service de plusieurs
-          métiers : image, événementiel, secourisme et web.
+          métiers : image, événementiel, secourisme et développeur web.
         </p>
 
         <div className="animate-fade-up delay-4 mt-10 flex flex-wrap items-center gap-4">

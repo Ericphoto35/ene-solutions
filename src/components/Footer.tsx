@@ -11,7 +11,7 @@ export function Footer() {
             ENE
           </p>
           <p className="mt-2 max-w-xs text-sm leading-relaxed text-mist-muted">
-            Photographie · Danse · DJ & événementiel · Secourisme · Développement
+            Photographie · Danse · DJ & événementiel · Secourisme · Développeur
             web
           </p>
         </div>

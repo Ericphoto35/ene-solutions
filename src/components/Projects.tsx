@@ -11,6 +11,9 @@ function hasProjectImage(imagePath: string | undefined): boolean {
 
 function ProjectVisual({ project }: { project: Project }) {
   const ready = hasProjectImage(project.image);
+  const alt =
+    project.imageAlt ??
+    `Capture d’écran du projet ${project.title} — ${project.category}, développeur web ENE Solutions`;
 
   return (
     <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink">
@@ -21,7 +24,7 @@ function ProjectVisual({ project }: { project: Project }) {
       {ready && project.image ? (
         <Image
           src={project.image}
-          alt={`Aperçu — ${project.title}`}
+          alt={alt}
           fill
           sizes="(max-width: 1024px) 100vw, 42vw"
           className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
@@ -84,6 +87,7 @@ function ProjectBody({ project, index }: { project: Project; index: number }) {
 export function Projects() {
   return (
     <section
+      id="projets"
       className="relative border-t border-line bg-ink-soft py-24 sm:py-32"
       aria-labelledby="projects-title"
     >
@@ -93,9 +97,22 @@ export function Projects() {
       />
 
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <h2 id="projects-title" className="sr-only">
-          Liste des réalisations
-        </h2>
+        <div className="mb-14 max-w-2xl">
+          <p className="mb-3 text-sm tracking-[0.3em] text-copper uppercase">
+            Portfolio
+          </p>
+          <h2
+            id="projects-title"
+            className="font-display text-3xl font-semibold tracking-tight text-mist sm:text-4xl"
+          >
+            Sites et applications réalisés
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-mist-muted sm:text-lg">
+            Une sélection de projets web conçus et développés sous la marque ENE
+            Solutions — vitrines, sites événementiels et outils métier.
+          </p>
+        </div>
+
         <ul className="divide-y divide-line border-y border-line">
           {projects.map((project, index) => {
             const isExternal = Boolean(project.href?.startsWith("http"));
@@ -105,21 +122,23 @@ export function Projects() {
                 key={project.id}
                 className={project.href ? "group" : undefined}
               >
-                {project.href ? (
-                  <a
-                    href={project.href}
-                    {...(isExternal
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                    className="block py-10 sm:py-12"
-                  >
-                    <ProjectBody project={project} index={index} />
-                  </a>
-                ) : (
-                  <div className="py-10 sm:py-12">
-                    <ProjectBody project={project} index={index} />
-                  </div>
-                )}
+                <article>
+                  {project.href ? (
+                    <a
+                      href={project.href}
+                      {...(isExternal
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="block py-10 sm:py-12"
+                    >
+                      <ProjectBody project={project} index={index} />
+                    </a>
+                  ) : (
+                    <div className="py-10 sm:py-12">
+                      <ProjectBody project={project} index={index} />
+                    </div>
+                  )}
+                </article>
               </li>
             );
           })}
