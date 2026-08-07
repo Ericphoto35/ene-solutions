@@ -24,17 +24,13 @@ export function Header() {
   useEffect(() => {
     if (!open) return;
 
-    const scrollY = window.scrollY;
     const { style: htmlStyle } = document.documentElement;
     const { style: bodyStyle } = document.body;
+    const prevHtmlOverflow = htmlStyle.overflow;
+    const prevBodyOverflow = bodyStyle.overflow;
 
     htmlStyle.overflow = "hidden";
     bodyStyle.overflow = "hidden";
-    bodyStyle.position = "fixed";
-    bodyStyle.top = `-${scrollY}px`;
-    bodyStyle.left = "0";
-    bodyStyle.right = "0";
-    bodyStyle.width = "100%";
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
@@ -42,41 +38,26 @@ export function Header() {
     window.addEventListener("keydown", onKey);
 
     return () => {
-      htmlStyle.overflow = "";
-      bodyStyle.overflow = "";
-      bodyStyle.position = "";
-      bodyStyle.top = "";
-      bodyStyle.left = "";
-      bodyStyle.right = "";
-      bodyStyle.width = "";
-      window.scrollTo(0, scrollY);
+      htmlStyle.overflow = prevHtmlOverflow;
+      bodyStyle.overflow = prevBodyOverflow;
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
 
   const mobileMenu =
     mounted &&
+    open &&
     createPortal(
       <div
         id={menuId}
         role="dialog"
         aria-modal="true"
         aria-label="Menu de navigation"
-        hidden={!open}
-        className={`fixed inset-0 z-[100] md:hidden ${open ? "" : "pointer-events-none"}`}
+        className="fixed inset-0 z-[100] md:hidden"
       >
-        <div
-          className={`absolute inset-0 bg-[#07111f] transition-opacity duration-300 ${
-            open ? "opacity-100" : "opacity-0"
-          }`}
-          aria-hidden
-        />
+        <div className="absolute inset-0 bg-[#07111f]" aria-hidden />
 
-        <div
-          className={`relative flex h-[100dvh] w-full flex-col transition-opacity duration-300 ${
-            open ? "opacity-100" : "opacity-0"
-          }`}
-        >
+        <div className="relative flex h-[100dvh] w-full flex-col">
           <div className="flex h-16 shrink-0 items-center justify-between px-5 sm:h-20 sm:px-8">
             <a
               href="/"

@@ -21,7 +21,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
       <div className="grain opacity-30" aria-hidden />
 
-      <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-20 pt-32 sm:px-8 sm:pb-28 lg:justify-center lg:pb-24">
+      <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-center px-5 pt-24 pb-16 sm:px-8 sm:pt-28 sm:pb-24">
         <p className="animate-fade-up delay-1 mb-4 text-sm tracking-[0.35em] text-copper-bright uppercase">
           Multiservices · Création · Formation
         </p>
