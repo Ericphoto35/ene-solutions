@@ -1,7 +1,7 @@
 /** URL canonique du site (surchargeable via NEXT_PUBLIC_SITE_URL sur Vercel). */
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "https://ene-solutions.vercel.app";
+  "https://www.enesolutions.fr";
 
 export const SITE_NAME = "ENE Solutions";
 export const SITE_EMAIL = "contact@enesolutions.fr";
