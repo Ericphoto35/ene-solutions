@@ -31,7 +31,7 @@ export function Header() {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-20 sm:px-8">
         <a
-          href="#top"
+          href="/"
           className="font-display text-lg font-bold tracking-[0.18em] text-mist transition-colors hover:text-copper-bright sm:text-xl"
           onClick={() => setOpen(false)}
         >
@@ -49,7 +49,7 @@ export function Header() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="/#contact"
             className="rounded-sm bg-copper px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-copper-bright"
           >
             Contact
@@ -97,7 +97,7 @@ export function Header() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="/#contact"
             className="mt-4 rounded-sm bg-copper px-6 py-3 text-sm font-medium text-ink"
             onClick={() => setOpen(false)}
           >

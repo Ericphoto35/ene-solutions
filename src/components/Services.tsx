@@ -32,11 +32,12 @@ export function Services() {
 
         <ul className="mt-16 divide-y divide-line border-y border-line">
           {services.map((service, index) => {
-            const isExternal = Boolean(service.href);
+            const href = service.href ?? `/?service=${service.id}#contact`;
+            const isExternal = href.startsWith("http");
             return (
               <li key={service.id} className="group">
                 <a
-                  href={service.href ?? `/?service=${service.id}#contact`}
+                  href={href}
                   {...(isExternal
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
