@@ -46,10 +46,10 @@ function OpeningSplash() {
       aria-describedby="opening-desc"
     >
       {/* Dégradé transparent : le site reste visible, mais illisible */}
-      <div className="pointer-events-none absolute inset-0 backdrop-blur-md">
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/70 to-ink/92" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/25 to-ink/85" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,137,74,0.18),transparent_58%)]" />
+      <div className="pointer-events-none absolute inset-0 backdrop-blur-xl">
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/25 via-ink/45 to-ink/82" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-ink/70" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,137,74,0.2),transparent_55%)]" />
         <div className="grain opacity-30" />
       </div>
 
@@ -60,12 +60,12 @@ function OpeningSplash() {
 
         <h1
           id="opening-title"
-          className="animate-fade-up delay-2 font-display text-[clamp(2.4rem,8vw,6.5rem)] leading-[0.9] font-bold tracking-tight text-mist"
+          className="animate-fade-up delay-2 font-display text-[clamp(3rem,12vw,8.5rem)] leading-[0.85] font-bold tracking-tight text-mist"
         >
           Grande ouverture
         </h1>
 
-        <p className="animate-fade-up delay-3 mt-5 font-display text-[clamp(1.35rem,4.2vw,2.75rem)] font-semibold tracking-[0.12em] text-copper-bright uppercase sm:tracking-[0.2em]">
+        <p className="animate-fade-up delay-3 mt-6 font-display text-[clamp(1.5rem,5vw,3.25rem)] font-semibold tracking-[0.12em] text-copper-bright uppercase sm:tracking-[0.18em]">
           {OPENING_LABEL}
         </p>
 
