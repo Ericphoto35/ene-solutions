@@ -5,6 +5,8 @@ import {
   organizationSchema,
   websiteSchema,
 } from "@/components/JsonLd";
+import { OpeningGate } from "@/components/OpeningOverlay";
+import { isSiteGated } from "@/data/opening";
 import { SITE_NAME, SITE_URL, WEB_OFFER } from "@/data/seo";
 import "./globals.css";
 
@@ -84,7 +86,7 @@ export default function RootLayout({
     <html lang="fr" className={`${display.variable} ${body.variable} h-full`}>
       <body className="min-h-full antialiased">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        {children}
+        <OpeningGate initiallyGated={isSiteGated()}>{children}</OpeningGate>
       </body>
     </html>
   );
