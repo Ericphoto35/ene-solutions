@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { SITE_EMAIL, SITE_NAME } from "@/data/seo";
 import {
   countdownParts,
@@ -24,10 +24,17 @@ function OpeningSplash() {
   const [parts, setParts] = useState<CountdownParts | null>(null);
 
   useEffect(() => {
-    const tick = () => setParts(countdownParts());
-    tick();
-    const id = window.setInterval(tick, 1000);
-    return () => window.clearInterval(id);
+    const frame = window.requestAnimationFrame(() => {
+      setParts(countdownParts());
+    });
+    const id = window.setInterval(() => {
+      setParts(countdownParts());
+    }, 1000);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearInterval(id);
+    };
   }, []);
 
   return (
@@ -51,16 +58,16 @@ function OpeningSplash() {
           {SITE_NAME}
         </p>
 
-        <p
+        <h1
           id="opening-title"
           className="animate-fade-up delay-2 font-display text-[clamp(2.4rem,8vw,6.5rem)] leading-[0.9] font-bold tracking-tight text-mist"
         >
           Grande ouverture
-        </p>
-
-        <h1 className="animate-fade-up delay-3 mt-5 font-display text-[clamp(1.35rem,4.2vw,2.75rem)] font-semibold tracking-[0.12em] text-copper-bright uppercase sm:tracking-[0.2em]">
-          {OPENING_LABEL}
         </h1>
+
+        <p className="animate-fade-up delay-3 mt-5 font-display text-[clamp(1.35rem,4.2vw,2.75rem)] font-semibold tracking-[0.12em] text-copper-bright uppercase sm:tracking-[0.2em]">
+          {OPENING_LABEL}
+        </p>
 
         <div
           className="animate-shimmer mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-copper to-transparent"
@@ -108,6 +115,20 @@ function OpeningSplash() {
   );
 }
 
+function subscribeGate(onStoreChange: () => void) {
+  const id = window.setInterval(onStoreChange, 1000);
+  window.addEventListener("popstate", onStoreChange);
+  return () => {
+    window.clearInterval(id);
+    window.removeEventListener("popstate", onStoreChange);
+  };
+}
+
+function getGateSnapshot() {
+  if (new URLSearchParams(window.location.search).has("preview")) return false;
+  return isSiteGated();
+}
+
 export function OpeningGate({
   children,
   initiallyGated,
@@ -115,21 +136,11 @@ export function OpeningGate({
   children: ReactNode;
   initiallyGated: boolean;
 }) {
-  const [gated, setGated] = useState(initiallyGated);
-
-  useEffect(() => {
-    const preview = new URLSearchParams(window.location.search).has("preview");
-    if (preview || !isSiteGated()) {
-      setGated(false);
-      return;
-    }
-
-    const id = window.setInterval(() => {
-      if (!isSiteGated()) setGated(false);
-    }, 1000);
-
-    return () => window.clearInterval(id);
-  }, []);
+  const gated = useSyncExternalStore(
+    subscribeGate,
+    getGateSnapshot,
+    () => initiallyGated,
+  );
 
   useEffect(() => {
     if (!gated) return;
