@@ -9,7 +9,7 @@ import {
 } from "@/components/legal/LegalDocument";
 
 export const metadata: Metadata = {
-  title: "Mentions légales | ENE Solutions",
+  title: { absolute: "Mentions légales | ENE Solutions" },
   description:
     "Mentions légales du site ENE Solutions : éditeur, hébergeur, propriété intellectuelle et droit applicable.",
   openGraph: {

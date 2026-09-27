@@ -8,7 +8,7 @@ import {
 } from "@/components/legal/LegalDocument";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité | ENE Solutions",
+  title: { absolute: "Politique de confidentialité | ENE Solutions" },
   description:
     "Politique de confidentialité du site ENE Solutions : données du formulaire de contact, cookie de consentement, bases légales et droits RGPD.",
   openGraph: {

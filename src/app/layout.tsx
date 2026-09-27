@@ -86,9 +86,10 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${display.variable} ${body.variable} h-full`}>
       <body className="min-h-full antialiased">
-        <ConsentProvider>{children}</ConsentProvider>
-        <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        <OpeningGate initiallyGated={isSiteGated()}>{children}</OpeningGate>
+        <ConsentProvider>
+          <JsonLd data={[organizationSchema(), websiteSchema()]} />
+          <OpeningGate initiallyGated={isSiteGated()}>{children}</OpeningGate>
+        </ConsentProvider>
       </body>
     </html>
   );
