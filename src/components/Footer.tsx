@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ManageCookiesButton } from "@/components/consent/ManageCookiesButton";
 import { navLinks } from "@/data/site";
 
 export function Footer() {
@@ -18,19 +20,45 @@ export function Footer() {
 
         <nav className="flex flex-wrap gap-6" aria-label="Pied de page">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm text-mist-muted transition-colors hover:text-mist"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        <p className="text-sm text-mist-muted">
-          © {year} Ene Solutions et Eric Soret. Tous droits réservés.
-        </p>
+        <div className="md:text-right">
+          <p className="text-sm text-mist-muted">
+            © {year} Ene Solutions et Eric Soret. Tous droits réservés.
+          </p>
+          <nav
+            aria-label="Liens légaux"
+            className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 md:justify-end"
+          >
+            <Link
+              href="/mentions-legales"
+              className="text-sm text-mist-muted transition-colors hover:text-mist focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-copper-bright"
+            >
+              Mentions légales
+            </Link>
+            <span aria-hidden="true" className="text-sm text-mist-muted">
+              ·
+            </span>
+            <Link
+              href="/politique-de-confidentialite"
+              className="text-sm text-mist-muted transition-colors hover:text-mist focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-copper-bright"
+            >
+              Politique de confidentialité
+            </Link>
+            <span aria-hidden="true" className="text-sm text-mist-muted">
+              ·
+            </span>
+            <ManageCookiesButton />
+          </nav>
+        </div>
       </div>
     </footer>
   );

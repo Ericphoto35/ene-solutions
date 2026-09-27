@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Figtree, Syne } from "next/font/google";
+import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import "./globals.css";
 
 const display = Syne({
@@ -34,7 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={`${display.variable} ${body.variable} h-full`}>
-      <body className="min-h-full antialiased">{children}</body>
+      <body className="min-h-full antialiased">
+        <ConsentProvider>{children}</ConsentProvider>
+      </body>
     </html>
   );
 }
