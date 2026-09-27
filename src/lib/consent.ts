@@ -21,6 +21,13 @@ export const allChoice: ConsentChoice = {
   thirdParty: true,
 };
 
+export const OPEN_COOKIE_PREFERENCES_EVENT = "ene-open-cookie-preferences";
+
+export function requestOpenCookiePreferences() {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(OPEN_COOKIE_PREFERENCES_EVENT));
+}
+
 function isConsentRecord(value: unknown): value is ConsentRecord {
   if (!value || typeof value !== "object") return false;
   const record = value as Record<string, unknown>;

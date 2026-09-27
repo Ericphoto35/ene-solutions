@@ -4,12 +4,14 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   useSyncExternalStore,
 } from "react";
 import { optionalTrackers } from "@/data/trackers";
 import {
+  OPEN_COOKIE_PREFERENCES_EVENT,
   allChoice,
   emptyChoice,
   getConsentSnapshot,
@@ -62,6 +64,13 @@ export function ConsentProvider({ children }: { children: React.ReactNode }) {
   }
 
   const consent = snapshot.status === "ready" ? snapshot.consent : null;
+
+  useEffect(() => {
+    const openPreferences = () => setBanner("preferences");
+    window.addEventListener(OPEN_COOKIE_PREFERENCES_EVENT, openPreferences);
+    return () =>
+      window.removeEventListener(OPEN_COOKIE_PREFERENCES_EVENT, openPreferences);
+  }, []);
 
   const commit = useCallback((choice: ConsentChoice) => {
     const previous = readConsent();
