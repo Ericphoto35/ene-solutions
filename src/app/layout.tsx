@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Figtree, Syne } from "next/font/google";
+import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import {
   JsonLd,
   organizationSchema,
@@ -85,8 +86,10 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${display.variable} ${body.variable} h-full`}>
       <body className="min-h-full antialiased">
-        <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        <OpeningGate initiallyGated={isSiteGated()}>{children}</OpeningGate>
+        <ConsentProvider>
+          <JsonLd data={[organizationSchema(), websiteSchema()]} />
+          <OpeningGate initiallyGated={isSiteGated()}>{children}</OpeningGate>
+        </ConsentProvider>
       </body>
     </html>
   );

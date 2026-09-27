@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { services } from "@/data/site";
 
@@ -20,17 +21,19 @@ const initial: FormState = {
 
 export function Contact() {
   const searchParams = useSearchParams();
+  const serviceFromQuery = services.find(
+    (service) => service.id === searchParams.get("service"),
+  )?.title;
   const [form, setForm] = useState<FormState>(initial);
+  const [appliedService, setAppliedService] = useState<string | undefined>();
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    const serviceId = searchParams.get("service");
-    if (!serviceId) return;
-    const match = services.find((s) => s.id === serviceId);
-    if (match) {
-      setForm((prev) => ({ ...prev, service: match.title }));
+  if (serviceFromQuery !== appliedService) {
+    setAppliedService(serviceFromQuery);
+    if (serviceFromQuery) {
+      setForm((prev) => ({ ...prev, service: serviceFromQuery }));
     }
-  }, [searchParams]);
+  }
 
   const mailto = useMemo(() => {
     const name = form.name.trim();
@@ -177,6 +180,19 @@ export function Contact() {
               </p>
             )}
           </div>
+          <p className="text-sm leading-relaxed text-mist-muted">
+            Les informations transmises via ce formulaire sont utilisées par ENE
+            Solutions afin de répondre à votre demande. Pour en savoir plus sur
+            l&apos;utilisation de vos données et l&apos;exercice de vos droits,
+            consultez notre{" "}
+            <Link
+              href="/politique-de-confidentialite"
+              className="text-copper-bright underline decoration-copper/40 underline-offset-4 transition-colors hover:text-copper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-copper-bright"
+            >
+              Politique de confidentialité
+            </Link>
+            .
+          </p>
         </form>
       </div>
     </section>
