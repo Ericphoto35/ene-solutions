@@ -36,17 +36,26 @@ export function Contact() {
   }
 
   const mailto = useMemo(() => {
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
     const subject = encodeURIComponent(
       `Demande Ene Solutions — ${form.service || "Informations"}`,
     );
     const body = encodeURIComponent(
-      `Bonjour,\n\nNom : ${form.name}\nEmail : ${form.email}\nService : ${form.service || "—"}\n\nMessage :\n${form.message}\n`,
+      `Bonjour,\n\nNom : ${name}\nEmail : ${email}\nService : ${form.service || "—"}\n\nMessage :\n${message}\n`,
     );
     return `mailto:contact@enesolutions.fr?subject=${subject}&body=${body}`;
   }, [form]);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+    if (!name || !email || !message) return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+    if (name.length > 120 || email.length > 254 || message.length > 4000) return;
     setSubmitted(true);
     window.location.href = mailto;
   }
@@ -104,6 +113,7 @@ export function Contact() {
                 required
                 name="name"
                 autoComplete="name"
+                maxLength={120}
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="w-full rounded-sm border border-line bg-ink/50 px-4 py-3 text-mist outline-none transition-colors placeholder:text-mist-muted/50 focus:border-copper"
@@ -117,6 +127,7 @@ export function Contact() {
                 type="email"
                 name="email"
                 autoComplete="email"
+                maxLength={254}
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="w-full rounded-sm border border-line bg-ink/50 px-4 py-3 text-mist outline-none transition-colors placeholder:text-mist-muted/50 focus:border-copper"
@@ -148,6 +159,7 @@ export function Contact() {
               required
               name="message"
               rows={5}
+              maxLength={4000}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               className="w-full resize-y rounded-sm border border-line bg-ink/50 px-4 py-3 text-mist outline-none transition-colors placeholder:text-mist-muted/50 focus:border-copper"
